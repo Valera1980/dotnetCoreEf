@@ -3,6 +3,7 @@ using HealthApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using HealthApi.Services;
 
 namespace HealthApi.Controllers
 {
@@ -10,65 +11,47 @@ namespace HealthApi.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private  AppMainContext _context;
-        public UserController(AppMainContext ctx)
+        private  IUserService _uuu;
+        public UserController(IUserService ctx)
         {
-            this._context = ctx;
+            this._uuu = ctx;
         }
         [HttpGet]
         public List<User> Get()
         {
-            var users = this._context.Users.ToList();
+            var users = this._uuu.getUsers();
             return users;
         }
-        [HttpGet]
-        [Route("find")]
-        public User FindUser(string param)
-        {
-           var query = this._context.Users;
-           var usr = query.Where(u => EF.Functions.Like(u.Name, "%" + param + "%")).FirstOrDefault();
-           return usr;
-        }
-        [HttpPost]
-        [Route("create")]
-        public User CreateUser(User user) {
-
-            this._context.Add<User>(user);
-            this._context.SaveChanges();
-
-            return new User{ Name = user.Name , Email = user.Email, Id = user.Id};
-       }
-    //    [HttpPut]
-    //    [Route("update")]
-    //    public User UpdateUser(int id, User data)
+    //     [HttpGet]
+    //     [Route("find")]
+    //     public User FindUser(string param)
     //     {
-    //         if(string.IsNullOrEmpty(id.ToString())){
-    //             return BadRequest()
-    //         }
-    //         return new User{Name="kkk"};
-    //         // if (id.Any())
-    //         // {
-    //         //     return BadRequest("Missed id parameter");
-    //         // }
-    //         // return;
+    //        var query = this._context.Users;
+    //        var usr = query.FirstOrDefault(u => EF.Functions.Like(u.Name, "%" + param + "%"));
+    //        return usr;
     //     }
-        [HttpDelete]
-        [Route("delete")]
-        
-        // public int DeleteUser([FromBody] JsonElement body) {
-        public int DeleteUser(int id) {
+    //     [HttpPost]
+    //     [Route("create")]
+    //     public User CreateUser(User user) {
 
-            // if(body.id === null){
-            //     return -99;
-            // }
-            var user = this._context.Users.SingleOrDefault(u => u.Id == id);
-            if(user != null)
-            {
-               this._context.Remove(user);
-               this._context.SaveChanges();
-               return id;
-            }
-            return -1;
-        }
+    //         this._context.Add<User>(user);
+    //         this._context.SaveChanges();
+
+    //         return new User{ Name = user.Name , Email = user.Email, Id = user.Id};
+    //    }
+    //     [HttpDelete]
+    //     [Route("delete")]
+        
+    //     public int DeleteUser(int id) {
+
+    //         var user = this._context.Users.Find(id);
+    //         if(user != null)
+    //         {
+    //            this._context.Remove(user);
+    //            this._context.SaveChanges();
+    //            return id;
+    //         }
+    //         return -1;
+    //     }
     }
 }
