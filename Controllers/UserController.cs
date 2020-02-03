@@ -11,15 +11,15 @@ namespace HealthApi.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private  IUserService _uuu;
+        private  IUserService _userService;
         public UserController(IUserService ctx)
         {
-            this._uuu = ctx;
+            this._userService = ctx;
         }
         [HttpGet]
         public List<User> Get()
         {
-            var users = this._uuu.getUsers();
+            var users = this._userService.getUsers();
             return users;
         }
     //     [HttpGet]
@@ -39,19 +39,20 @@ namespace HealthApi.Controllers
 
     //         return new User{ Name = user.Name , Email = user.Email, Id = user.Id};
     //    }
-    //     [HttpDelete]
-    //     [Route("delete")]
+        [HttpDelete]
+        [Route("delete")]
         
-    //     public int DeleteUser(int id) {
+        public int DeleteUser(int id) {
 
-    //         var user = this._context.Users.Find(id);
-    //         if(user != null)
-    //         {
-    //            this._context.Remove(user);
-    //            this._context.SaveChanges();
-    //            return id;
-    //         }
-    //         return -1;
-    //     }
+            return _userService.deleteUser(id);
+            // var user = this._context.Users.Find(id);
+            // if(user != null)
+            // {
+            //    this._context.Remove(user);
+            //    this._context.SaveChanges();
+            //    return id;
+            // }
+            // return -1;
+        }
     }
 }
