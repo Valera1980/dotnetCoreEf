@@ -30,7 +30,8 @@ namespace HealthApi
         {
             services.AddControllers();
             services.AddDbContext<AppMainContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddTransient<IUserService, UsersServices>();
+            // services.AddTransient<IUserService, UsersServices>();
+            services.AddScoped<IUserService, UsersServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
