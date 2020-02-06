@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using HealthApi.Models;
 using HealthApi.Services;
 using Microsoft.AspNetCore.Builder;
@@ -32,6 +33,7 @@ namespace HealthApi
             services.AddDbContext<AppMainContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             // services.AddTransient<IUserService, UsersServices>();
             services.AddScoped<IUserService, UsersServices>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
