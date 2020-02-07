@@ -6,7 +6,7 @@ namespace HealthApi.Models
     {
         public UserMapped()
         {
-            CreateMap
+            // CreateMap
         }
 
     }
