@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using HealthApi.Services;
+using System.Threading.Tasks;
 
 namespace HealthApi.Controllers
 {
@@ -17,9 +18,9 @@ namespace HealthApi.Controllers
             this._userService = ctx;
         }
         [HttpGet]
-        public List<User> Get()
+        public async Task<List<User>> Get()
         {
-            var users = this._userService.getUsers();
+            var users = await this._userService.getUsers();
             return users;
         }
     //     [HttpGet]

@@ -1,12 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using HealthApi.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace HealthApi.Services
 {
   public interface IUserService
   {
-    public List<User> getUsers();
+    // public List<User> getUsers();
+    public Task<List<User>> getUsers();
     public int deleteUser(int id);
   }
   public class UsersServices : IUserService
@@ -18,9 +22,9 @@ namespace HealthApi.Services
     {
       this._context = ctx;
     }
-    public List<User> getUsers()
+    public async Task<List<User>> getUsers()
     {
-      return this._context.Users.ToList();
+      return await this._context.Users.ToListAsync();
     }
     public int deleteUser(int id)
     {
