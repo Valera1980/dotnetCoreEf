@@ -55,5 +55,15 @@ namespace HealthApi.Controllers
             // }
             // return -1;
         }
+        [HttpGet]
+        [Route("strategy")]
+        public string TestStrategy()
+        {
+            List<string> ls = new List<string> {"aaaaa", "bbbbbb"};
+            var sf = new StrategyFactory<string>(ls)
+            .getStrategy(EnumStrategies.AS_STRING);
+            return sf.getData();
+
+        }
     }
 }
